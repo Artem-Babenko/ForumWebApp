@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "serviceConnectorResourceId": "",
+      "secretStore": "LocalSecretsFile",
+      "type": "mssql.local",
+      "connectionId": "Server=(local):sqlexpress;Database=Forum;Trusted_Connection=True;MultipleActiveResultSets=true;Encrypt=false;",
+      "dynamicId": null
+    }
+  }
+}

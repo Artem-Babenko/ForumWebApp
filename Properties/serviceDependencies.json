@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "Server=(local):sqlexpress;Database=Forum;Trusted_Connection=True;MultipleActiveResultSets=true;Encrypt=false;",
+      "dynamicId": null
+    }
+  }
+}
