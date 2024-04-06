@@ -59,11 +59,11 @@ public class UserRepository : BaseRepository, IUserRepository
                 {
                     var user = new UserEntity()
                     {
-                        Id = Convert.ToInt32(reader[nameof(UserEntity.Id)]),
-                        Name = Convert.ToString(reader[nameof(UserEntity.Name)]) ?? "null name",
-                        Surname = Convert.ToString(reader[nameof(UserEntity.Surname)]) ?? "",
-                        Age = Convert.ToInt32(reader[nameof(UserEntity.Age)]),
-                        CreateOn = Convert.ToDateTime(reader[nameof(UserEntity.CreateOn)])
+                        Id = Convert.ToInt32(reader["Id"]),
+                        Name = Convert.ToString(reader["Name"]) ?? "",
+                        Surname = Convert.ToString(reader["Surname"]) ?? "",
+                        Age = Convert.ToInt32(reader["Age"]),
+                        CreateOn = Convert.ToDateTime(reader["CreateOn"])
                     };
                     users.Add(user);
                 }
@@ -74,13 +74,88 @@ public class UserRepository : BaseRepository, IUserRepository
         return users;
     }
 
-    public void Update(UserEntity user)
+    public UserEntity Add(UserEntity entity)
     {
+        using (var connection = new SqlConnection(ConnectionString))
+        {
+            connection.Open();
 
+            using(var command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = "INSERT INTO [dbo].[User] ([Name], [Surname], [Age], [CreateOn]) " +
+                                      "VALUES (@Name, @Surname, @Age, @NowDate) " +
+                                      "SELECT [Id], [CreateOn] FROM [User] " +
+                                      "WHERE [Id] = SCOPE_IDENTITY()";
+
+                command.Parameters.Add(new SqlParameter("Name", entity.Name));
+                command.Parameters.Add(new SqlParameter("Surname", entity.Surname));
+                command.Parameters.Add(new SqlParameter("Age", entity.Age));
+                command.Parameters.Add(new SqlParameter("NowDate", DateTime.Now));
+
+                using var reader = command.ExecuteReader();
+                if(reader.Read())
+                {
+                    entity.Id = Convert.ToInt32(reader["Id"]);
+                    entity.CreateOn = Convert.ToDateTime(reader["CreateOn"]);
+                }
+            }
+
+            connection.Close();
+        }
+
+        return entity;
     }
 
-    public void Delete(int id)
+    public void Update(UserEntity user)
     {
+        using (var connection = new SqlConnection(ConnectionString))
+        {
+            connection.Open();
 
+            using (var command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = "UPDATE [dbo].[User] " +
+                                      "SET [Name] = @Name," +
+                                      "[Surname] = @Surname," +
+                                      "[Age] = @Age " +
+                                      "WHERE [Id] = @Id";
+
+                command.Parameters.Add(new SqlParameter("Id", user.Id));
+                command.Parameters.Add(new SqlParameter("Name", user.Name));
+                command.Parameters.Add(new SqlParameter("Surname", user.Surname));
+                command.Parameters.Add(new SqlParameter("Age", user.Age));
+
+                command.ExecuteNonQuery();
+            }
+            // Додати перевірку чи редагувало
+            connection.Close();
+        }
+    }
+
+    public bool Delete(int id)
+    {
+        var isDeleted = false;
+        using (var connection = new SqlConnection(ConnectionString))
+        {
+            connection.Open();
+
+            using (var command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = "DELETE FROM [User] " +
+                                      "WHERE [Id] = @Id " +
+                                      "SELECT * FROM [User] " +
+                                      "WHERE [Id] = @Id";
+                command.Parameters.Add(new SqlParameter("Id", id));
+
+                using var reader = command.ExecuteReader();
+                if (!reader.HasRows) isDeleted = true;
+            }
+
+            connection.Close();
+        }
+        return isDeleted;
     }
 }

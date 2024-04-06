@@ -10,7 +10,7 @@ public class UserEntity
 
     public int? Age { get; set; }
 
-    public required DateTime CreateOn { get; set; }
+    public DateTime CreateOn { get; set; }
 
 
     public IList<ChatEntity> CreatedChats { get; set; } = new List<ChatEntity>();

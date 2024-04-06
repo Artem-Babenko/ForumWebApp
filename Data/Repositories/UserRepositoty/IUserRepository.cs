@@ -8,7 +8,9 @@ public interface IUserRepository
 
     UserEntity? Get(int id);
 
+    UserEntity Add(UserEntity user);
+
     void Update(UserEntity user);
 
-    void Delete(int id);
+    bool Delete(int id);
 }
