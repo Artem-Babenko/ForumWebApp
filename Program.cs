@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using ForumWebApp.Extensions;
 using ForumWebApp.Models;
 using ForumWebApp.Data;
+using ForumWebApp.SignalRHubs;
 
 var configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
@@ -13,6 +14,7 @@ builder.Services.AddAutoMapper(opt => opt.AddProfile<EntityProfile>());
 builder.Services.Configure<ConnectionStrings>(configuration.GetSection("ConnectionStrings"));
 builder.Services.AddControllers();
 builder.Services.AddRepositories();
+builder.Services.AddSignalR();
 builder.Services.AddResponseCompression(config =>
 {
     config.Providers.Add<GzipCompressionProvider>();
@@ -21,6 +23,7 @@ builder.Services.AddResponseCompression(config =>
 
 var app = builder.Build();
 
+app.MapHub<ChatHub>("/api/chat");
 app.UseStaticFiles();
 app.MapControllers();
 app.UseResponseCompression();
