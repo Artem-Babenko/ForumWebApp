@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 
-namespace ForumWebApp.Data.Repositories.ChatRepository;
+namespace ForumWebApp.Data.Repositories;
 
 public class ChatRepository : BaseRepository, IChatRepository
 {

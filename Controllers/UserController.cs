@@ -48,8 +48,11 @@ public class UserController : Controller
         var user = await Request.ReadFromJsonAsync<UserEntity>();
         if (user == null) return BadRequest("Invalid data");
 
-        userRepository.Update(user);
-        return Ok();
+        var isUpdated = userRepository.Update(user);
+        if (isUpdated)
+            return Ok();
+        else
+            return NotFound();
     }
 
     [HttpDelete]

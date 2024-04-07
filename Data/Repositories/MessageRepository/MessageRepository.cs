@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 
-namespace ForumWebApp.Data.Repositories.MessageRepository;
+namespace ForumWebApp.Data.Repositories;
 
 public class MessageRepository :  BaseRepository, IMessageRepository
 {

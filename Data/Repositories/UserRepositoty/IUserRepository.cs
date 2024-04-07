@@ -10,7 +10,7 @@ public interface IUserRepository
 
     UserEntity Add(UserEntity user);
 
-    void Update(UserEntity user);
+    bool Update(UserEntity user);
 
     bool Delete(int id);
 }

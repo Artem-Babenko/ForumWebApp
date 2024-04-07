@@ -1,4 +1,4 @@
-﻿namespace ForumWebApp.Data.Repositories.ChatRepository;
+﻿namespace ForumWebApp.Data.Repositories;
 
 public interface IChatRepository
 {

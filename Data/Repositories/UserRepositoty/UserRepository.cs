@@ -107,8 +107,9 @@ public class UserRepository : BaseRepository, IUserRepository
         return entity;
     }
 
-    public void Update(UserEntity user)
+    public bool Update(UserEntity user)
     {
+        var isUpdated = false;
         using (var connection = new SqlConnection(ConnectionString))
         {
             connection.Open();
@@ -127,11 +128,13 @@ public class UserRepository : BaseRepository, IUserRepository
                 command.Parameters.Add(new SqlParameter("Surname", user.Surname));
                 command.Parameters.Add(new SqlParameter("Age", user.Age));
 
-                command.ExecuteNonQuery();
+                int rowAffected = command.ExecuteNonQuery();
+                if (rowAffected == 1) isUpdated = true;
             }
-            // Додати перевірку чи редагувало
+
             connection.Close();
         }
+        return isUpdated;
     }
 
     public bool Delete(int id)

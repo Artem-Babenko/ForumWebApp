@@ -1,4 +1,4 @@
-﻿namespace ForumWebApp.Data.Repositories.MessageRepository;
+﻿namespace ForumWebApp.Data.Repositories;
 
 public interface IMessageRepository
 {
