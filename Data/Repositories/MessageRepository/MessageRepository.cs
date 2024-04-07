@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using ForumWebApp.Models;
+using Microsoft.Extensions.Options;
 
 namespace ForumWebApp.Data.Repositories;
 

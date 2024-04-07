@@ -1,4 +1,5 @@
 ﻿using ForumWebApp.Data.Entities;
+using ForumWebApp.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 
@@ -148,13 +149,11 @@ public class UserRepository : BaseRepository, IUserRepository
             {
                 command.Connection = connection;
                 command.CommandText = "DELETE FROM [User] " +
-                                      "WHERE [Id] = @Id " +
-                                      "SELECT * FROM [User] " +
                                       "WHERE [Id] = @Id";
                 command.Parameters.Add(new SqlParameter("Id", id));
 
-                using var reader = command.ExecuteReader();
-                if (!reader.HasRows) isDeleted = true;
+                int rowAffected = command.ExecuteNonQuery();
+                if (rowAffected == 1) isDeleted = true;
             }
 
             connection.Close();

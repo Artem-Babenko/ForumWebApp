@@ -1,5 +1,7 @@
-﻿using ForumWebApp.Data.Entities;
+﻿using AutoMapper;
+using ForumWebApp.Data.Entities;
 using ForumWebApp.Data.Repositories;
+using ForumWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForumWebApp.Controllers;
@@ -8,47 +10,57 @@ namespace ForumWebApp.Controllers;
 public class UserController : Controller
 {
     private readonly IUserRepository userRepository;
+    private readonly IMapper mapper;
 
-    public UserController(IUserRepository userRepository)
+    public UserController(IUserRepository userRepository, IMapper mapper)
     {
-        this.userRepository = userRepository;    
+        this.userRepository = userRepository;
+        this.mapper = mapper;
     }
 
     [HttpGet]
     [Route("users")]
     public IActionResult GetUsers()
     {
-        var users = userRepository.GetAll();
-        return Json(users);
+        var userEntities = userRepository.GetAll();
+        var userModels = mapper.Map<List<UserModel>>(userEntities);
+        return Json(userModels);
     }
 
     [HttpGet]
     [Route("users/{id:int}")]
     public IActionResult GetUser(int id)
     {
-        var user = userRepository.Get(id);
-        return Json(user);
+        var userEntity = userRepository.Get(id);
+        var userModel = mapper.Map<UserModel>(userEntity);
+        return Json(userModel);
     }
 
     [HttpPost]
     [Route("users")]
     public async Task<IActionResult> AddUser()
     {
-        var user = await Request.ReadFromJsonAsync<UserEntity>();
-        if (user == null) return BadRequest("Invalid data");
+        var userModel = await Request.ReadFromJsonAsync<UserModel>();
+        if (userModel == null) return BadRequest("Invalid data");
 
-        user = userRepository.Add(user);
-        return Json(user);
+        var userEntity = mapper.Map<UserEntity>(userModel);
+        userRepository.Add(userEntity);
+
+        userModel = mapper.Map<UserModel>(userEntity);
+        
+        return Json(userModel);
     }
 
     [HttpPut]
     [Route("users")]
     public async Task<IActionResult> UpdateUser()
     {
-        var user = await Request.ReadFromJsonAsync<UserEntity>();
-        if (user == null) return BadRequest("Invalid data");
+        var userModel = await Request.ReadFromJsonAsync<UserModel>();
+        if (userModel == null) return BadRequest("Invalid data");
 
-        var isUpdated = userRepository.Update(user);
+        var userEntity = mapper.Map<UserEntity>(userModel);
+
+        var isUpdated = userRepository.Update(userEntity);
         if (isUpdated)
             return Ok();
         else

@@ -1,5 +1,7 @@
-using ForumWebApp.Extensions;
 using Microsoft.AspNetCore.ResponseCompression;
+using ForumWebApp.Extensions;
+using ForumWebApp.Models;
+using ForumWebApp.Data;
 
 var configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
@@ -7,6 +9,7 @@ var configuration = new ConfigurationBuilder()
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAutoMapper(opt => opt.AddProfile<EntityProfile>());
 builder.Services.Configure<ConnectionStrings>(configuration.GetSection("ConnectionStrings"));
 builder.Services.AddControllers();
 builder.Services.AddRepositories();
@@ -23,8 +26,3 @@ app.MapControllers();
 app.UseResponseCompression();
 
 app.Run();
-
-public record class ConnectionStrings
-{
-    public required string DefaultConnection { get; set; }
-}
