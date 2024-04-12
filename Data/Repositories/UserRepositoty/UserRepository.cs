@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace ForumWebApp.Data.Repositories;
 
-public class UserRepository : BaseRepository, IUserRepository 
+public class UserRepository : BaseRepository, IUserRepository
 {
     public UserRepository(IOptionsSnapshot<ConnectionStrings> options) : base(options) { }
 
@@ -159,5 +159,39 @@ public class UserRepository : BaseRepository, IUserRepository
             connection.Close();
         }
         return isDeleted;
+    }
+
+    public IList<UserEntity> GetAllByName(string value)
+    {
+        var users = new List<UserEntity>();
+        using (var connection = new SqlConnection(ConnectionString))
+        {
+            connection.Open();
+
+            using (var command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = "SELECT TOP(20) * FROM [User] " +
+                                      "WHERE CONCAT([Name], ' ', [Surname]) LIKE '%' + @Value + '%'";
+                command.Parameters.Add(new SqlParameter("Value", value));
+
+                using var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    var user = new UserEntity()
+                    {
+                        Id = Convert.ToInt32(reader["Id"]),
+                        Name = Convert.ToString(reader["Name"]) ?? "",
+                        Surname = Convert.ToString(reader["Surname"]) ?? "",
+                        Age = Convert.ToInt32(reader["Age"]),
+                        CreateOn = Convert.ToDateTime(reader["CreateOn"])
+                    };
+                    users.Add(user);
+                }
+            }
+
+            connection.Close();
+        }
+        return users;
     }
 }

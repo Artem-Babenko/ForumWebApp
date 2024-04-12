@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ForumWebApp.Data.Entities;
 using ForumWebApp.Models;
+using ForumWebApp.Models;
 
 namespace ForumWebApp.Data;
 
@@ -10,7 +11,9 @@ public class EntityProfile : Profile
     {
         #region User
 
-        CreateMap<UserEntity, UserModel>().ReverseMap();
+        CreateMap<UserEntity, UserFullModel>().ReverseMap();
+
+        CreateMap<UserSmallModel, UserEntity>().ReverseMap();
 
         #endregion
     }

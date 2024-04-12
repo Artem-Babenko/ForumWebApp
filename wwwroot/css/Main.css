@@ -54,13 +54,33 @@ nav .search input::placeholder {
 nav .search input:focus::placeholder {
   color: #555;
 }
+nav .chat-list {
+  margin-right: 5px;
+  height: calc(100% - 100px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+nav .chat-list::-webkit-scrollbar {
+  width: 5px;
+}
+nav .chat-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0);
+  border-radius: 10px;
+}
+nav .chat-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+nav .chat-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
 nav .chat-list .chat-item {
   padding: 4px 8px;
   margin: 4px 8px;
   display: flex;
   align-items: center;
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 20px;
   gap: 10px;
   transition: all 0.2s ease-in-out;
 }
@@ -111,7 +131,7 @@ nav .chat-list .chat-item .info .head .time {
   font-size: 13px;
   padding-right: 5px;
 }
-nav .chat-list .chat-item .info .last-message {
+nav .chat-list .chat-item .info .last-message, nav .chat-list .chat-item .info .user-id {
   color: #ccc;
   font-size: 14px;
   padding: 2px 0;

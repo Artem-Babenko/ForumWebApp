@@ -6,6 +6,8 @@ public interface IUserRepository
 {
     IList<UserEntity> GetAll();
 
+    IList<UserEntity> GetAllByName(string value);
+
     UserEntity? Get(int id);
 
     UserEntity Add(UserEntity user);

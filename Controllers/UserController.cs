@@ -23,7 +23,7 @@ public class UserController : Controller
     public IActionResult GetUsers()
     {
         var userEntities = userRepository.GetAll();
-        var userModels = mapper.Map<List<UserModel>>(userEntities);
+        var userModels = mapper.Map<List<UserFullModel>>(userEntities);
         return Json(userModels);
     }
 
@@ -32,7 +32,7 @@ public class UserController : Controller
     public IActionResult GetUser(int id)
     {
         var userEntity = userRepository.Get(id);
-        var userModel = mapper.Map<UserModel>(userEntity);
+        var userModel = mapper.Map<UserFullModel>(userEntity);
         return Json(userModel);
     }
 
@@ -40,13 +40,13 @@ public class UserController : Controller
     [Route("users")]
     public async Task<IActionResult> AddUser()
     {
-        var userModel = await Request.ReadFromJsonAsync<UserModel>();
+        var userModel = await Request.ReadFromJsonAsync<UserFullModel>();
         if (userModel == null) return BadRequest("Invalid data");
 
         var userEntity = mapper.Map<UserEntity>(userModel);
         userRepository.Add(userEntity);
 
-        userModel = mapper.Map<UserModel>(userEntity);
+        userModel = mapper.Map<UserFullModel>(userEntity);
         
         return Json(userModel);
     }
@@ -55,7 +55,7 @@ public class UserController : Controller
     [Route("users")]
     public async Task<IActionResult> UpdateUser()
     {
-        var userModel = await Request.ReadFromJsonAsync<UserModel>();
+        var userModel = await Request.ReadFromJsonAsync<UserFullModel>();
         if (userModel == null) return BadRequest("Invalid data");
 
         var userEntity = mapper.Map<UserEntity>(userModel);
