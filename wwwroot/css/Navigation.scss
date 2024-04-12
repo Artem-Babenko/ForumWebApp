@@ -1,0 +1,119 @@
+
+nav {
+    width: 300px;
+    background-color: #222;
+
+    .search {
+        display: flex;
+        align-items: center;
+        padding: 5px 0;
+
+        button.menu {
+            border: 0;
+            outline: 0;
+            padding: 15px 20px;
+            font-size: 20px;
+            background-color: transparent;
+            color: #777;
+            cursor: pointer;
+            transition: all .2s ease-in-out;
+
+            &:hover {
+                color: #fff;
+            }
+        }
+
+        input {
+            border: 0;
+            outline: 0;
+            border-radius: 20px;
+            padding: 7px 14px;
+            width: calc(100% - 80px);
+            background-color: #333;
+            font-size: 15px;
+            color: #fff;
+
+            &::placeholder {
+                transition: all .2s ease-in-out;
+            }
+
+            &:focus::placeholder {
+                color: #555;
+            }
+        }
+    }
+
+    .chat-list {
+        .chat-item {
+            padding: 4px 8px;
+            margin: 4px 8px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 10px;
+            gap: 10px;
+            transition: all .2s ease-in-out;
+
+            &:hover{
+                background-color: #333;
+            }
+
+            .icon-container {
+                padding: 5px 0;
+                position: relative;
+
+                .icon {
+                    height: 45px;
+                    width: 45px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+                    color: #1ebaff;
+                    font-size: 18px;
+                    font-weight: 500;
+                    background-color: #a8f7ff;
+                }
+
+                .status {
+                    position: absolute;
+                    bottom: 4px;
+                    right: 4px;
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    background-color: #00ff24;
+                    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+                }
+            }
+
+            .info {
+                width: 100%;
+
+                .head {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .name {
+                        color: #eee;
+                        font-size: 15px;
+                    }
+
+                    .time {
+                        color: #999;
+                        font-weight: 300;
+                        font-size: 13px;
+                        padding-right: 5px;
+                    }
+                }
+
+                .last-message {
+                    color: #ccc;
+                    font-size: 14px;
+                    padding: 2px 0;
+                }
+            }
+        }
+    }
+}

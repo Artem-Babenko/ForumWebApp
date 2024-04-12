@@ -4,13 +4,17 @@ import { chatListItems } from "./chatList.js";
 jQuery(document).on('load', function () {
 
     // Nav
-    const chatListContainer = jQuery('#chatList');
-    chatListContainer.add(chatListItems());
+    //const chatListContainer = jQuery('#chatList');
+    //chatListContainer.add(chatListItems());
 
     // Chat
-    const chatContainer = jQuery('#chatContainer');
-    chatContainer.add(chatElements());
+    //const chatContainer = jQuery('#chatContainer');
+    //chatContainer.add(chatElements());
 
     // Menu
 
 });
+
+function InitSearch() {
+
+}
