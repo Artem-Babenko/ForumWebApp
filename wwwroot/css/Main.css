@@ -13,7 +13,81 @@ body {
 
 .chat-container {
   width: calc(100% - 300px);
-  background-color: #111;
+  background-color: #222;
+}
+.chat-container .top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+.chat-container .top .info {
+  padding: 13px 15px;
+  width: 100%;
+}
+.chat-container .top .info .name {
+  color: #eee;
+  font-weight: 500;
+  font-size: 15px;
+}
+.chat-container .top .info .status {
+  padding-top: 2px;
+  color: #999;
+  font-weight: 300;
+  font-size: 13px;
+}
+.chat-container .top .buttons {
+  margin-right: 15px;
+  white-space: nowrap;
+  cursor: default;
+}
+.chat-container .top .buttons button {
+  border: 0;
+  outline: 0;
+  min-width: 30px;
+  background-color: transparent;
+  font-size: 18px;
+  color: #777;
+  padding: 15px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.chat-container .top .buttons button:hover {
+  color: #fff;
+}
+.chat-container .center {
+  background-color: #161616;
+  min-height: calc(100% - 132px);
+  border-radius: 20px 0 0 20px;
+}
+.chat-container .bottom {
+  display: flex;
+  margin-right: 5px;
+  user-select: none;
+  cursor: default;
+}
+.chat-container .bottom button {
+  border: 0;
+  outline: 0;
+  min-width: 40px;
+  background-color: transparent;
+  font-size: 20px;
+  color: #777;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.chat-container .bottom button:hover {
+  color: #fff;
+}
+.chat-container .bottom .message-input {
+  outline: 0;
+  border: 0;
+  width: 100%;
+  padding: 5px 10px;
+  background-color: transparent;
+  color: #fff;
+  font-size: 15px;
 }
 
 nav {
@@ -59,20 +133,23 @@ nav .chat-list {
   height: calc(100% - 100px);
   overflow-y: scroll;
   overflow-x: hidden;
+  user-select: none;
+  transition: all 0.2s ease-in-out;
 }
 nav .chat-list::-webkit-scrollbar {
   width: 5px;
+  transition: all 0.2s ease-in-out;
 }
-nav .chat-list::-webkit-scrollbar-track {
+nav .chat-list:hover::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0);
   border-radius: 10px;
 }
-nav .chat-list::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+nav .chat-list:hover::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
   border-radius: 10px;
 }
-nav .chat-list::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
+nav .chat-list:hover::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 nav .chat-list .chat-item {
   padding: 4px 8px;

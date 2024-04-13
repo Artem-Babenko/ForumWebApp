@@ -48,23 +48,26 @@ nav {
         height: calc(100% - 100px);
         overflow-y: scroll;
         overflow-x: hidden;
+        user-select: none;
+        transition: all .2s ease-in-out;
 
         &::-webkit-scrollbar {
             width: 5px;
+            transition: all .2s ease-in-out;
         }
 
-        &::-webkit-scrollbar-track {
+        &:hover::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.0);
             border-radius: 10px;
         }
 
-        &::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
+        &:hover::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
             border-radius: 10px;
         }
 
-        &::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.5);
+        &:hover::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .chat-item {

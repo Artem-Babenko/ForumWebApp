@@ -23,6 +23,7 @@
             </button>
             <input type="text" id="search" placeholder="Search..." />
         </div>
+
         <div class="chat-list" id="chatList">
             <!-- Chat list -->
             <div class="chat-item">
@@ -38,7 +39,6 @@
                     <p class="last-message">Hello world!</p>
                 </div>
             </div>
-
             <div class="chat-item">
                 <div class="icon-container">
                     <p class="icon">AB</p>
@@ -52,7 +52,6 @@
                     <p class="last-message">Hello world!</p>
                 </div>
             </div>
-
             <div class="chat-item">
                 <div class="icon-container">
                     <p class="icon">AB</p>
@@ -66,12 +65,32 @@
                     <p class="last-message">Hello world!</p>
                 </div>
             </div>
-
         </div>
     </nav>
 
     <main class="chat-container" id="chatContainer">
         <!-- Chat -->
+        <div class="top">
+            <div class="info">
+                <p class="name">Artem Babenko</p>
+                <p class="status">last seen 13 minutes ago</p>
+            </div>
+            <div class="buttons">
+                <button class="search fa-solid fa-magnifying-glass"></button>
+                <button class="call fa-solid fa-phone"></button>
+                <button class="options fa-solid fa-ellipsis-vertical"></button>
+            </div>
+        </div>
+
+        <div class="center">
+
+        </div>
+
+        <div class="bottom">
+            <button class="attach-file fa-solid fa-paperclip"></button>
+            <input class="message-input" id="messageInput" placeholder="Write a message..." />
+            <button class="smile fa-regular fa-face-smile"></button>
+        </div>
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
